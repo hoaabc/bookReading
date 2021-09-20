@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\BookController;
+use App\Http\Controllers\admin\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,8 +15,10 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::apiResource('users', \App\Http\Controllers\admin\UserController::class);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::apiResource('users', UserController::class);
+Route::post('login', [UserController::class, 'login' ]);
+Route::post('refresh', [UserController::class, 'refresh' ]);
+
+Route::post('logout',  [UserController::class, 'logout' ]);
+
