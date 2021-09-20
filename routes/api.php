@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\BookController;
 use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,8 +18,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::apiResource('users', UserController::class);
-Route::post('login', [UserController::class, 'login' ]);
-Route::post('refresh', [UserController::class, 'refresh' ]);
 
-Route::post('logout',  [UserController::class, 'logout' ]);
+Route::post('login', [AuthController::class, 'login' ])->name('login');
+Route::post('refresh', [AuthController::class, 'refresh' ]);
+Route::post('logout',  [AuthController::class, 'logout' ]);
 

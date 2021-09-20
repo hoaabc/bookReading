@@ -17,6 +17,9 @@ class checkjwtToken
     public function handle(Request $request, Closure $next)
     {
 
+        if(!auth()->check()) {
+            return response(['message' => "unauthorize" ], 403 );
+        }
         return $next($request);
     }
 }

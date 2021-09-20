@@ -3,63 +3,26 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Middleware\checkjwtToken;
+use App\Http\Repository\UserRepository;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
-    public function __construct()
+    private $userRepository;
+
+    public function __construct(UserRepository  $userRepository)
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
-//        $this->middleware(checkjwtToken::class, ['except' => ['login']]);
-
-
+        parent::__construct();
+        $this->userRepository = $userRepository;
     }
 
-    /**
-     * @var bool
-     */
-    public $loginAfterSignUp = true;
-
-    public function login(Request $request)
-    {
-        $credentials = request(['email', 'password']);
-
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-
-        return $this->respondWithToken($token);
-    }
-
-    public function logout(Request $request)
-    {
-        auth()->logout();
-
-        return response()->json(['message' => 'Successfully logged out']);
-    }
-
-    public function refresh()
-    {
-        return $this->respondWithToken(auth()->refresh());
-    }
-
-    protected function respondWithToken($token)
-    {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60,
-            'payload' => auth()->payload()
-        ]);
-    }
 
     public function index()
     {
-        return response(User::paginate(10) , \Illuminate\Http\Response::HTTP_OK , ['hello'=>"condsdacac" , 'a' => "con cac"]);
+        return response($this->userRepository->getAll(), Response::HTTP_OK );
+
     }
 
     /**
@@ -71,8 +34,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
-
-        return response(  User::create($request->all()) , \Illuminate\Http\Response::HTTP_OK , ['hello'=>"conacac" , 'a' => "ok"])->withCookie('test' , 'this is test' , 50000);
+        $request['password'] = bcrypt($request['password']);
+        return response(  $this->userRepository->store($request) , Response::HTTP_OK );
     }
 
     /**
@@ -83,10 +46,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
-        cookie()->forget('tests');
 
-        return response($user , \Illuminate\Http\Response::HTTP_ACCEPTED , ['hello'=>"conacac" , 'a' => "con cac"]) ;
+        return response($this->userRepository->show($user) , Response::HTTP_OK ) ;
 
     }
 
@@ -100,7 +61,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         //
-        return response(  $user->update($request->all()) , \Illuminate\Http\Response::HTTP_OK , ['hello'=>"updsdasdasdasddsdated" , 'a' => "ok"]);
+        return response(  $this->userRepository->update($request ,$user) , Response::HTTP_OK );
 
 
     }
@@ -113,7 +74,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        return response(  $user->delete() , \Illuminate\Http\Response::HTTP_OK , ['hello'=>"updated" , 'a' => "ok"]);
+        return response(  $this->userRepository->destroy($user) , Response::HTTP_OK );
 
         //
     }
