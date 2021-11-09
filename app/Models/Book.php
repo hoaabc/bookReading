@@ -9,5 +9,8 @@ class Book extends BaseModel
 {
 
     protected $table = "book";
+    public function authors() {
+        return $this->hasMany(Author::class);
+    }
 
 }

@@ -12,6 +12,9 @@ class BookRepository extends  BaseRepository
     {
         parent::__construct($book);
     }
+    public function BookDetail($id) {
+
+    }
 
 
 }

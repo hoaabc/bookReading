@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Genre extends BaseModel
 {
     protected $table = "genre";
-//    protected $fillable = [	'genre_name',	'description','genre_image'];
 
 
 }

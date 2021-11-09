@@ -12,4 +12,6 @@ class BaseModel extends Model
     use HasFactory;
     public $timestamps = false;
 
+
+
 }
