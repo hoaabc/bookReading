@@ -20,7 +20,7 @@ class Controller extends BaseController
     public function __construct(BaseRepository $modelRepository)
     {
 //        $this->middleware('auth:api', ['except' => ['login']]);
-        $this->middleware(checkjwtToken::class, ['except' => ['login']]);
+//        $this->middleware(checkjwtToken::class, ['except' => ['login']]);
         $this->repository = $modelRepository;
     }
 

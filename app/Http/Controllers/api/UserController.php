@@ -22,11 +22,6 @@ class UserController extends Controller
         $request['password'] = bcrypt($request['password']);
         return response(  $this->repository->store($request) , Response::HTTP_OK );
     }
-//    public function show(User $user)
-//    {
-//
-//        return response($this->repository->show($user) , Response::HTTP_OK ) ;
-//
-//    }
+
 
 }

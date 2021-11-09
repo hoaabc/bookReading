@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    protected $bookRepository;
     public function __construct(BookRepository $repository)
     {
         parent::__construct($repository);

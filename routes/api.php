@@ -1,8 +1,16 @@
 <?php
 
 use App\Http\Controllers\api\BookController;
+use App\Http\Controllers\api\BookGenreController;
+use App\Http\Controllers\api\CommentController;
+use App\Http\Controllers\api\EpisodeController;
+use App\Http\Controllers\api\FavoriteController;
+use App\Http\Controllers\api\GenreController;
+use App\Http\Controllers\api\RoleController;
+use App\Http\Controllers\api\SliderController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\AuthController;
+use App\Models\BookRating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +27,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('users', UserController::class);
 Route::apiResource('books', BookController::class);
+Route::apiResource('authors', AuthController::class);
+Route::apiResource('genres', GenreController::class);
+Route::apiResource('bookgenres', BookGenreController::class);
+Route::apiResource('bookrating', BookRating::class);
+Route::apiResource('comments', CommentController::class);
+Route::apiResource('episodes', EpisodeController::class);
+Route::apiResource('sliders', SliderController::class);
+Route::apiResource('roles', RoleController::class);
+Route::apiResource('favorites', FavoriteController::class);
+
 
 Route::post('login', [AuthController::class, 'login' ])->name('login');
 Route::post('refresh', [AuthController::class, 'refresh' ]);
