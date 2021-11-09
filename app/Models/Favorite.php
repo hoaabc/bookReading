@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Favorite extends Model
+class Favorite extends BaseModel
 {
-    use HasFactory;
+    protected $table = "favorite";
 }

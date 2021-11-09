@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BookRating extends Model
+class BookRating extends BaseModel
 {
-    use HasFactory;
+    protected $table = "book_rating";
 }

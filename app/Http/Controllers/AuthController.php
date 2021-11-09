@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repository\BaseRepository;
+use App\Http\Repository\UserRepository;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
+    public function __construct(UserRepository $modelRepository)
+    {
+        parent::__construct($modelRepository);
+    }
+
     public function login(Request $request)
     {
         $credentials = request(['email', 'password']);
@@ -28,6 +35,9 @@ class AuthController extends Controller
     public function refresh()
     {
         return $this->respondWithToken(auth()->refresh());
+    }
+    public function getLoggedUser() {
+        return auth()->user();
     }
 
     protected function respondWithToken($token)

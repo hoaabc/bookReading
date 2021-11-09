@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\admin\BookController;
-use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\api\BookController;
+use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -18,8 +18,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::apiResource('users', UserController::class);
+Route::apiResource('books', BookController::class);
 
 Route::post('login', [AuthController::class, 'login' ])->name('login');
 Route::post('refresh', [AuthController::class, 'refresh' ]);
 Route::post('logout',  [AuthController::class, 'logout' ]);
+Route::get('logged',  [AuthController::class, 'getLoggedUser' ]);
 
