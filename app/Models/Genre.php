@@ -12,4 +12,8 @@ class Genre extends BaseModel
         'genre_image',
         'created_at'
     ];
+
+    public function  books() {
+        return $this->belongsToMany(Book::class , 'book_genre'  , 'genre_id' , 'book_id');
+    }
 }

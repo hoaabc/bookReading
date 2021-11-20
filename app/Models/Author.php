@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Author extends BaseModel
 {
     protected $table = "author";
+    protected $fillable = ["name" , "description" , "created_at"] ;
 
 }

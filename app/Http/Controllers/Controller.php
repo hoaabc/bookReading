@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    protected $repository;
+    public $repository;
     public function __construct(BaseRepository $modelRepository)
     {
 //        $this->middleware('auth:api', ['except' => ['login']]);

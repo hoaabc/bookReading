@@ -4,14 +4,15 @@
 namespace App\Http\Repository;
 
 
+use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Model;
 
 class BaseRepository
 {
     public $model ;
-    public function __construct(Model  $model)
+    public function __construct()
     {
-        $this->model = $model;
+        $this->model = new BaseModel();
     }
     public function getAll()
     {

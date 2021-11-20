@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\AuthorController;
 use App\Http\Controllers\api\BookController;
 use App\Http\Controllers\api\BookGenreController;
 use App\Http\Controllers\api\CommentController;
@@ -27,7 +28,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('users', UserController::class);
 Route::apiResource('books', BookController::class);
-Route::apiResource('authors', AuthController::class);
+Route::get('books/{id}/comments' , [BookController::class , 'getComments' ] );
+
+Route::apiResource('authors', AuthorController::class);
 Route::apiResource('genres', GenreController::class);
 Route::apiResource('bookgenres', BookGenreController::class);
 Route::apiResource('bookrating', BookRating::class);

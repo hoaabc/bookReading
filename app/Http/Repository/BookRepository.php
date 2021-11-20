@@ -5,15 +5,19 @@ namespace App\Http\Repository;
 
 
 use App\Models\Book;
+use App\Models\Comment;
 
-class BookRepository extends  BaseRepository
+class BookRepository
 {
-    public function __construct(Book  $book)
-    {
-        parent::__construct($book);
-    }
-    public function BookDetail($id) {
 
+    public function show($id)
+    {
+        return Book::with(['genres:id,genre_name', 'author:id,name'])->where('id', $id)->get();
+    }
+
+    public function listComments($id)
+    {
+        return Comment::where('book_id' , $id)->with('user:id,username')->get();
     }
 
 
