@@ -11,6 +11,7 @@ class AuthorRepository  extends  BaseRepository
 {
     public function __construct(Author  $author)
     {
-        parent::__construct($author);
+        parent::__construct();
+        $this->model = $author;
     }
 }

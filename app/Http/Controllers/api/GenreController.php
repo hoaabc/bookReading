@@ -10,6 +10,9 @@ class GenreController extends Controller
     //
     public function __construct(GenreRepository $repository)
     {
-        parent::__construct($repository);
+        parent::__construct();
+        $this->repository = $repository;
+
     }
+
 }

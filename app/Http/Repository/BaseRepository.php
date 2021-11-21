@@ -12,13 +12,11 @@ class BaseRepository
     public $model ;
     public function __construct()
     {
-        $this->model = new BaseModel();
+//        $this->model = new BaseModel();
     }
     public function getAll()
     {
         return $this->model->latest()->paginate(20);
-
-
     }
 
     public function store( $request)

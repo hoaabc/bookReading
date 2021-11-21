@@ -19,5 +19,9 @@ class Book extends BaseModel
     public function comments () {
         return $this->hasMany(Comment::class , 'book_id' , 'id');
     }
+    public function episodes () {
+        return $this->hasMany(Episode::class , 'book_id' , 'id');
+    }
+
 
 }

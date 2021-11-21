@@ -5,6 +5,7 @@ namespace App\Models;
 class Genre extends BaseModel
 {
     protected $table = "genre";
+    protected $hidden = ['created_at' , 'pivot' ];
 
     protected $fillable = [
         'genre_name',

@@ -7,6 +7,7 @@ use App\Http\Controllers\api\CommentController;
 use App\Http\Controllers\api\EpisodeController;
 use App\Http\Controllers\api\FavoriteController;
 use App\Http\Controllers\api\GenreController;
+use App\Http\Controllers\api\IndexController;
 use App\Http\Controllers\api\RoleController;
 use App\Http\Controllers\api\SliderController;
 use App\Http\Controllers\api\UserController;
@@ -25,8 +26,10 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+Route::get("home" , [IndexController::class , 'homeData' ]);
 Route::apiResource('users', UserController::class);
+Route::get('users/{id}/favorites' , [UserController::class , 'favorites' ] );
+
 Route::apiResource('books', BookController::class);
 Route::get('books/{id}/comments' , [BookController::class , 'getComments' ] );
 
@@ -34,8 +37,8 @@ Route::apiResource('authors', AuthorController::class);
 Route::apiResource('genres', GenreController::class);
 Route::apiResource('bookgenres', BookGenreController::class);
 Route::apiResource('bookrating', BookRating::class);
-Route::apiResource('comments', CommentController::class);
 Route::apiResource('episodes', EpisodeController::class);
+Route::apiResource('comments', CommentController::class);
 Route::apiResource('sliders', SliderController::class);
 Route::apiResource('roles', RoleController::class);
 Route::apiResource('favorites', FavoriteController::class);

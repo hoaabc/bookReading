@@ -10,6 +10,8 @@ class FavoriteController extends Controller
     //
     public function __construct(FavoriteRepository $repository)
     {
-        parent::__construct($repository);
+        parent::__construct();
+        $this->repository = $repository;
+
     }
 }

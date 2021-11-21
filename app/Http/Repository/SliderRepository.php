@@ -9,8 +9,14 @@ use App\Models\Slider;
 
 class SliderRepository extends  BaseRepository
 {
-    public function __construct(Slider  $slider)
+    public function __construct( Slider $slider)
     {
-        parent::__construct($slider);
+        parent::__construct();
+        $this->model = $slider;
     }
+//    public function getAll()
+//    {
+//        return $this->model->latest()->paginate(20);
+//    }
+
 }

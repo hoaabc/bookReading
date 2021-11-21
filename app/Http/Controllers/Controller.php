@@ -16,12 +16,10 @@ use Symfony\Component\HttpFoundation\Response;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    public $repository;
-    public function __construct(BaseRepository $modelRepository)
+    protected $repository;
+    public function __construct()
     {
-//        $this->middleware('auth:api', ['except' => ['login']]);
 //        $this->middleware(checkjwtToken::class, ['except' => ['login']]);
-        $this->repository = $modelRepository;
     }
 
     public function index()

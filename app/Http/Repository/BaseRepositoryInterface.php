@@ -9,9 +9,10 @@ use Illuminate\Http\Request;
 
 interface BaseRepositoryInterface
 {
-    public function getAll() ;
-    public function store($request);
-    public function show($model);
-    public function update( $request,  $model);
-    public function destroy($model);
+    public function getAll();
+    public function store( $request);
+    public function show($id);
+    public function update($request, $id);
+    public function destroy($id);
+
 }

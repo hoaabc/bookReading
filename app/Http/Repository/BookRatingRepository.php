@@ -4,13 +4,31 @@
 namespace App\Http\Repository;
 
 
-use App\Models\BookGenre;
-use App\Models\BookRating;
-
-class BookRatingRepository extends  BaseRepository
+class BookRatingRepository implements  BaseRepositoryInterface
 {
-    public function __construct(BookRating  $bookRating)
+
+    public function getAll()
     {
-        parent::__construct($bookRating);
+        // TODO: Implement getAll() method.
+    }
+
+    public function store($request)
+    {
+        // TODO: Implement store() method.
+    }
+
+    public function show($id)
+    {
+        // TODO: Implement show() method.
+    }
+
+    public function update($request, $id)
+    {
+        // TODO: Implement update() method.
+    }
+
+    public function destroy($id)
+    {
+        // TODO: Implement destroy() method.
     }
 }

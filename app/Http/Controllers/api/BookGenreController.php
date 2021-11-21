@@ -9,6 +9,8 @@ class BookGenreController extends Controller
 {
     public function __construct(BookGenreRepository $repository)
     {
-        parent::__construct($repository);
+        parent::__construct();
+        $this->repository = $repository;
+
     }
 }

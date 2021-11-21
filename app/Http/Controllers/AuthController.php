@@ -9,10 +9,6 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    public function __construct(UserRepository $modelRepository)
-    {
-        parent::__construct($modelRepository);
-    }
 
     public function login(Request $request)
     {

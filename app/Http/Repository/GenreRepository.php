@@ -8,9 +8,12 @@ use App\Models\Genre;
 
 class GenreRepository  extends  BaseRepository
 {
-
-    public function __construct(Genre  $genre)
+    public function __construct(Genre $genre)
     {
-        parent::__construct($genre);
+        $this->model = $genre;
+    }
+
+    public  function  latest() {
+        return $this->model->latest()->get();
     }
 }
