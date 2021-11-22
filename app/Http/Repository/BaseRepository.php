@@ -16,7 +16,7 @@ class BaseRepository
     }
     public function getAll()
     {
-        return $this->model->latest()->paginate(20);
+        return $this->model->latest()->get();
     }
 
     public function store( $request)

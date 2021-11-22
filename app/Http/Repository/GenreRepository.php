@@ -10,6 +10,7 @@ class GenreRepository  extends  BaseRepository
 {
     public function __construct(Genre $genre)
     {
+        parent::__construct();
         $this->model = $genre;
     }
 

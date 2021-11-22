@@ -19,7 +19,7 @@ class Controller extends BaseController
     protected $repository;
     public function __construct()
     {
-//        $this->middleware(checkjwtToken::class, ['except' => ['login']]);
+        $this->middleware(checkjwtToken::class, ['except' => ['login']]);
     }
 
     public function index()

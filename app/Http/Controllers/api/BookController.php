@@ -18,10 +18,30 @@ class BookController extends Controller
         parent::__construct();
         $this->repository = $repository;
     }
+    public function latest() {
+        return response($this->repository->latest(), Response::HTTP_OK ) ;
+    }
+    public function bookSeries() {
+        return response($this->repository->bookSeries(), Response::HTTP_OK ) ;
+    }
+    public function topView() {
+        return response($this->repository->topView(), Response::HTTP_OK ) ;
+
+    }
+    public  function  mostFavorite() {
+        return response($this->repository->mostFavorite(), Response::HTTP_OK ) ;
+    }
 
     public function getComments($id) {
         return response($this->repository->listComments($id) , Response::HTTP_OK ) ;
 
+    }
+    public function getEpisodes($id) {
+        return response($this->repository->listEpisodes($id) , Response::HTTP_OK ) ;
+
+    }
+    public function getByGenre($genre_id) {
+        return response($this->repository->getBookByGenre($genre_id), Response::HTTP_OK ) ;
     }
 
     public  function  test() {
@@ -31,11 +51,7 @@ class BookController extends Controller
         ];
         return response( $data , Response::HTTP_OK) ;
     }
-//    public function index()
-//    {
-//        return response( $this->repository->getAll() , Response::HTTP_OK );
-//
-//    }
+
 
 
 }

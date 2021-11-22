@@ -28,24 +28,43 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get("home" , [IndexController::class , 'homeData' ]);
 Route::apiResource('users', UserController::class);
-Route::get('users/{id}/favorites' , [UserController::class , 'favorites' ] );
 
 Route::apiResource('books', BookController::class);
+
 Route::get('books/{id}/comments' , [BookController::class , 'getComments' ] );
+Route::get('books/{id}/episodes' , [BookController::class , 'getEpisodes' ] );
+
+Route::get('latest' , [BookController::class , 'latest' ] );
+Route::get('book-series' , [BookController::class , 'bookSeries' ] );
+Route::get('most-favorites' , [BookController::class , 'mostFavorite' ] );
+
 
 Route::apiResource('authors', AuthorController::class);
 Route::apiResource('genres', GenreController::class);
-Route::apiResource('bookgenres', BookGenreController::class);
-Route::apiResource('bookrating', BookRating::class);
-Route::apiResource('episodes', EpisodeController::class);
-Route::apiResource('comments', CommentController::class);
+Route::get('genres/{genre_id}/books' , [BookController::class , 'getByGenre' ] );
+
+//Route::apiResource('bookgenres', BookGenreController::class);
+//Route::apiResource('bookrating', BookRating::class);
+//Route::apiResource('episodes', EpisodeController::class);
+//Route::apiResource('comments', CommentController::class);
 Route::apiResource('sliders', SliderController::class);
-Route::apiResource('roles', RoleController::class);
-Route::apiResource('favorites', FavoriteController::class);
+//Route::apiResource('roles', RoleController::class);
+//Route::apiResource('favorites', FavoriteController::class);
 
 
 Route::post('login', [AuthController::class, 'login' ])->name('login');
 Route::post('refresh', [AuthController::class, 'refresh' ]);
 Route::post('logout',  [AuthController::class, 'logout' ]);
 Route::get('logged',  [AuthController::class, 'getLoggedUser' ]);
+
+Route::get('profile',  [UserController::class, 'showProfile' ]);
+Route::put('profile',  [UserController::class, 'editProfile' ]);
+
+Route::post('like',  [UserController::class, 'like' ]);
+Route::get('favorite-book',  [UserController::class, 'favoriteBooks' ]);
+Route::get('recent-book',  [UserController::class, 'history' ]);
+Route::post('rate-book',  [UserController::class, 'rateBook' ]);
+
+Route::get('update-fake-book',  [IndexController::class, 'updateFakeImageBook' ]);
+
 

@@ -6,32 +6,14 @@ namespace App\Http\Repository;
 
 use App\Models\Author;
 use App\Models\BookGenre;
+use App\Models\Episode;
 
-class BookGenreRepository    implements  BaseRepositoryInterface
+class BookGenreRepository    extends  BaseRepository
 {
 
-    public function getAll()
+    public function __construct(BookGenre  $model)
     {
-        // TODO: Implement getAll() method.
-    }
-
-    public function store($request)
-    {
-        // TODO: Implement store() method.
-    }
-
-    public function show($id)
-    {
-        // TODO: Implement show() method.
-    }
-
-    public function update($request, $id)
-    {
-        // TODO: Implement update() method.
-    }
-
-    public function destroy($id)
-    {
-        // TODO: Implement destroy() method.
+        parent::__construct();
+        $this->model = $model;
     }
 }

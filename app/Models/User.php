@@ -26,6 +26,7 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'password',
         'full_name',
+        'phone',
         'role_id',
         'created_at'
     ];
@@ -56,5 +57,11 @@ class User extends Authenticatable implements JWTSubject
 
         ];
 
+    }
+    public function  favoriteBooks() {
+        return $this->belongsToMany(Book::class , 'favorite'  , 'user_id' , 'book_id');
+    }
+    public function  bookHistory() {
+        return $this->belongsToMany(Book::class , 'history'  , 'user_id' , 'book_id');
     }
 }
