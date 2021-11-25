@@ -23,4 +23,5 @@ class FavoriteRepository extends BaseRepository
                ])->first();
     }
 
+
 }

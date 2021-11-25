@@ -150,6 +150,36 @@ class UserController extends Controller
 
 
     }
+    public function isLikedBook (Request $request) {
+        $favorite_item =  $this->favoriteRepo->getFavoriteItem(\auth()->id(), $request->book_id);
+        if($favorite_item == null) {
+            return \response()->json([
+                'liked' => false,
+                'message' => "Have Not like Yet"
+            ]);
+        }
+        return   \response()->json([
+            'liked' => true,
+            'message' => "liked this book"
+        ]);
+    }
+    public function register(Request  $request): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $this->repository->register($request);
+            return \response()->json([
+                'success' => true,
+                'message' => "add user successfully"
+            ]);
+        }
+        catch (\Exception $exception) {
+            return \response()->json([
+                'success' => false,
+                'message' => "cannot add user"
+            ]);
+        }
+
+    }
 
 
 }

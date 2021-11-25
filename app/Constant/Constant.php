@@ -55,5 +55,13 @@ class Constant
         "https://iphimmoi.net/wp-content/uploads/2021/11/hanyou-no-yashahime-55779-thumbnail-250x350.jpg" ,
         "https://iphimmoi.net/wp-content/uploads/2021/11/mieu-chi-minh-55777-thumbnail-250x350.jpg" ,
     ];
+    public const ROLE = [
+        'admin' => 10 ,
+        'user'  => 1,
+        'publisher' => 5,
+        'mod' => 9
+    ];
+
+    public const ROLE_WITHOUT_TOKEN = ['login' , 'register'];
 
 }

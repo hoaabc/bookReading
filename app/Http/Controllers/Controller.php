@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constant\Constant;
 use App\Http\Middleware\checkjwtToken;
 use App\Http\Repository\BaseRepository;
 use App\Models\User;
@@ -19,7 +20,7 @@ class Controller extends BaseController
     protected $repository;
     public function __construct()
     {
-        $this->middleware(checkjwtToken::class, ['except' => ['login']]);
+        $this->middleware(checkjwtToken::class, ['except' => Constant::ROLE_WITHOUT_TOKEN]);
     }
 
     public function index()

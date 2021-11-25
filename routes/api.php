@@ -56,11 +56,14 @@ Route::post('login', [AuthController::class, 'login' ])->name('login');
 Route::post('refresh', [AuthController::class, 'refresh' ]);
 Route::post('logout',  [AuthController::class, 'logout' ]);
 Route::get('logged',  [AuthController::class, 'getLoggedUser' ]);
+Route::post('register',  [UserController::class, 'register' ]);
 
 Route::get('profile',  [UserController::class, 'showProfile' ]);
 Route::put('profile',  [UserController::class, 'editProfile' ]);
 
 Route::post('like',  [UserController::class, 'like' ]);
+Route::post('is-like',  [UserController::class, 'isLikedBook' ]);
+
 Route::get('favorite-book',  [UserController::class, 'favoriteBooks' ]);
 Route::get('recent-book',  [UserController::class, 'history' ]);
 Route::post('rate-book',  [UserController::class, 'rateBook' ]);
