@@ -4,11 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\CrudInterface;
-use App\Http\Middleware\checkjwtToken;
 use App\Http\Repository\BookRepository;
-use App\Models\Book;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller as BaseController;
 use Symfony\Component\HttpFoundation\Response;
 
 class BookController extends Controller

@@ -9,15 +9,20 @@ use App\Models\Comment;
 use App\Models\Episode;
 use App\Models\Genre;
 use App\Models\History;
+use Symfony\Component\HttpFoundation\Response;
 
 class BookRepository extends BaseRepository
 {
     protected $historyModel ;
-    public function __construct(Book  $book , History  $historyModel)
+    protected $favoriteRepo;
+    protected $userRepo;
+    public function __construct(Book  $book , History  $historyModel , FavoriteRepository  $favoriteRepo , UserRepository  $userRepository)
     {
         parent::__construct();
         $this->model = $book;
         $this->historyModel = $historyModel;
+        $this->favoriteRepo = $favoriteRepo;
+        $this->userRepo = $userRepository;
     }
     public function show($id)
     {
@@ -28,18 +33,17 @@ class BookRepository extends BaseRepository
         ]);
         //increase view
         $this->model->findOrFail($id)->increment('view_count', 1);
+
         return $this->model
                     ->with(['genres:id,genre_name', 'author:id,name' ])
                     ->with('episodes:book_id,name,created_at,content_url,status')
                     ->with(['comments' => function($query) {$query->with('user:id,username')->latest()->take(3);}]) //get latest 3 comment with book
-                    ->where('id', $id)->get();
+                    ->where('id', $id)->first();
     }
-
     public function listComments($id)
     {
         return Comment::where('book_id' , $id)->with('user:id,username')->get();
     }
-
     public function listEpisodes($id)
     {
         return Episode::where('book_id' , $id)->orderBy('name' , 'asc')->get();
@@ -49,23 +53,19 @@ class BookRepository extends BaseRepository
         return $this->model->latest()->paginate(20);
 
     }
-
     public function store($request)
     {
         return $this->model->create($request->all()) ;
     }
-
     public function update($request, $id)
     {
         return $this->model->findOrFail($id)->update($request->all());
     }
-
     public function destroy($id)
     {
         return $this->model->destroy($id);
 
     }
-
     public function latest() {
         return $this->model->select(['id', 'name' , 'book_image'])->latest()->get();
     }
@@ -79,7 +79,6 @@ class BookRepository extends BaseRepository
     public  function  mostFavorite() {
         return $this->model->select(['id', 'name' , 'book_image'])->latest()->orderBy('like_count' , 'desc')->get();
     }
-
     //top10
     public function Top10latest() {
         return $this->model->select(['id', 'name' , 'book_image'])->latest()->take(10)->get();
@@ -103,6 +102,19 @@ class BookRepository extends BaseRepository
             ];
         });
     }
+    public function favoriteBooksById($user_id)
+    {
+        return $this->userRepo->show($user_id)->favoriteBooks->map(function ($item){
+            return [
+                'id' => $item['id'],
+                'name' => $item['name'],
+                'book_image' =>$item['book_image']
+            ];
+        });
+
+
+    }
+
 
     public function test() {
         return json_encode([

@@ -5,14 +5,15 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Http\Repository\BookRatingRepository;
 use App\Http\Repository\BookRepository;
+use App\Http\Repository\CommentRepository;
 use App\Http\Repository\FavoriteRepository;
 use App\Http\Repository\HistoryRepository;
 use App\Http\Repository\UserRepository;
+use App\Models\Book;
 use App\Models\History;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use mysql_xdevapi\Exception;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
@@ -21,12 +22,13 @@ class UserController extends Controller
     protected $bookRepo;
     protected $historyRepo;
     protected $ratingRepo;
-
+    protected $commentRepo;
     public function __construct(UserRepository $repository,
                                 FavoriteRepository $favoriteRepo,
                                 BookRepository $bookRepository ,
                                 HistoryRepository  $historyRepository,
-                                BookRatingRepository  $ratingRepo)
+                                BookRatingRepository  $ratingRepo,
+                                CommentRepository $commentRepo)
     {
         parent::__construct();
         $this->repository = $repository;
@@ -34,7 +36,7 @@ class UserController extends Controller
         $this->bookRepo = $bookRepository;
         $this->historyRepo = $historyRepository;
         $this->ratingRepo = $ratingRepo;
-
+        $this->commentRepo = $commentRepo;
     }
 
     public function store(Request $request)
@@ -59,6 +61,17 @@ class UserController extends Controller
 
         }
         return response(Auth::user(), Response::HTTP_OK);
+
+//        return auth()->user();
+    }
+    public function showProfileById($id = null)
+    {
+        $data = $this->repository->show($id);
+        $favorite_data =  $this->bookRepo->favoriteBooksById($id);
+        $data['favorite_book'] =$favorite_data;
+        $data['count_favorite'] = $favorite_data->count();
+
+        return response( $data , Response::HTTP_OK);
 
 //        return auth()->user();
     }
@@ -110,6 +123,18 @@ class UserController extends Controller
     public function favoriteBooks()
     {
         return response($this->repository->show(auth()->id())->favoriteBooks->map(function ($item){
+            return [
+                'id' => $item['id'],
+                'name' => $item['name'],
+                'book_image' =>$item['book_image']
+            ];
+        })
+            , Response::HTTP_OK);
+
+    }
+    public function favoriteBooksById($user_id)
+    {
+        return response($this->repository->show($user_id)->favoriteBooks->map(function ($item){
             return [
                 'id' => $item['id'],
                 'name' => $item['name'],
@@ -179,6 +204,18 @@ class UserController extends Controller
             ]);
         }
 
+    }
+    public function comment(Request  $request)
+    {
+        return \response()->json($this->commentRepo->commentOnBook($request));
+    }
+    public function  updateFakeImg() {
+        $imgArrr = Book::all()->pluck('id')->toArray();
+        foreach ($imgArrr as $item) {
+            Book::find($item)->update([
+                'book_image' => "http://v2.hoabook.tk/img/".rand(0,120).".jpg"
+            ]);
+        }
     }
 
 

@@ -62,6 +62,6 @@ class Constant
         'mod' => 9
     ];
 
-    public const ROLE_WITHOUT_TOKEN = ['login' , 'register'];
+    public const ROLE_WITHOUT_TOKEN = ['login' , 'register' , 'refresh' , 'update-fake-img'];
 
 }
